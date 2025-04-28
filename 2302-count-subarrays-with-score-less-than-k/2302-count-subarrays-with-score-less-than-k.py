@@ -5,10 +5,9 @@ class Solution:
         output = 0
         for right in range(len(nums)):
             current_sum += nums[right]
-            while left < right and current_sum * (right - left + 1) >= k:
+            while left <= right and current_sum * (right - left + 1) >= k:
                 current_sum -= nums[left]
                 left += 1
-            if current_sum * (right - left + 1) < k:
-                output += right - left + 1
+            output += right - left + 1
         return output
             
