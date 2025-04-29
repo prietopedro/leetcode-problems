@@ -4,12 +4,8 @@ class Solution:
         left = 0
         window = 0
         output = 0
-        first_i = deque([])
         for right in range(len(nums)):
-            if nums[right] == best_num:
-                window += 1
-                first_i.append(right)
-            
+            window += nums[right] == best_num
             while window == k:
                 output += len(nums) - right
                 window -= nums[left] == best_num
