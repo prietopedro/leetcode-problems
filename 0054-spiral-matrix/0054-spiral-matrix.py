@@ -7,7 +7,6 @@ class Solution:
         row,col = 0,0
         seen = set()
         while len(output) != rows * cols:
-            print(row,col)
             output.append(matrix[row][col])
             seen.add((row,col))
             if prev == 'R':
