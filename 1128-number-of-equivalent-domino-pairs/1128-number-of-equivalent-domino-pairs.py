@@ -3,8 +3,7 @@ class Solution:
         seen = defaultdict(int)
         output = 0
         for x,y in dominoes:
-            
-            output += seen[(x,y)] + seen[(y,x)] if x != y else seen[(x,y)]
+            output += seen[(x,y)]
+            output += seen[(y,x)] if x != y else 0
             seen[(x,y)]+=1
-
         return output
