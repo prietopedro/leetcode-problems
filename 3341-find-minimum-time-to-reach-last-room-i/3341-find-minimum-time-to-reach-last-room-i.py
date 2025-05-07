@@ -10,7 +10,9 @@ class Solution:
             time,row,col = heapq.heappop(heap)
             for x,y in directions:
                 nr,nc = row + x,col + y
-                if 0 <= nr < m and 0 <= nc < n and (times[nr][nc] > max(time + 1,moveTime[nr][nc] + 1)):
+                if 0 <= nr < m and 0 <= nc < n:
+                    next_time = max(time + 1,moveTime[nr][nc] + 1)
+                    if times[nr][nc] <= next_time: continue
                     times[nr][nc] = max(time + 1,moveTime[nr][nc] + 1)
                     heapq.heappush(heap,(times[nr][nc],nr,nc))
         return times[-1][-1]
