@@ -3,8 +3,6 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        #  l i       r
-        # [0,0,2,1,1,2]
         l,i,r = 0,0,len(nums) - 1
         def swap_right(i,r):
             while nums[r] == 2 and r > i:
@@ -18,10 +16,8 @@ class Solution:
             return l
 
         while i <= r:
-            if nums[i] == 0:
-                l = swap_left(i,l)
-            elif nums[i] == 2:
-                r = swap_right(i,r)
+            if nums[i] == 2: r = swap_right(i,r)
+            if nums[i] == 0: l = swap_left(i,l)
             i += 1
             
         
