@@ -1,6 +1,7 @@
 class Solution:
     def minDistance(self, word1: str, word2: str) -> int:
         m,n = len(word1),len(word2)
+        @cache
         def rec(i,j):
             left_i,left_j = m - i,n - j
             if i >= m:
