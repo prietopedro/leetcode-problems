@@ -2,8 +2,8 @@ class Solution:
     def closestMeetingNode(self, edges: List[int], node1: int, node2: int) -> int:
         node1_visited = set()
         node2_visited = set()
+        best = inf
         while node1 is not None or node2 is not None:
-            best = inf
             node1_visited.add(node1)
             if node1 is not None:
                 if node1 in node2_visited: best = min(node1,best)
