@@ -29,8 +29,10 @@ class Solution:
     def smallestEquivalentString(self, s1: str, s2: str, baseStr: str) -> str:
         dsu = DSU()
         c_index = lambda c: ord(c) - ord('a')
-        c_char = lambda i: chr(i + ord('a')) 
         for c1,c2 in zip(s1,s2):
             dsu.join(c_index(c1),c_index(c2))
-            
-        return ''.join(c_char(dsu.get_min(c_index(c))) for c in baseStr)
+        output = []
+        for c in baseStr:
+            output.append(dsu.get_min(c_index(c)))
+        return ''.join(chr(c + ord('a')) for c in output)
+
