@@ -32,4 +32,5 @@ class Solution:
         c_char = lambda i: chr(i + ord('a')) 
         for c1,c2 in zip(s1,s2):
             dsu.join(c_index(c1),c_index(c2))
+            
         return ''.join(c_char(dsu.get_min(c_index(c))) for c in baseStr)
