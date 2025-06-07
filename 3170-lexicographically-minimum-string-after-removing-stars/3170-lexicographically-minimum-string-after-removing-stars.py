@@ -1,13 +1,13 @@
 class Solution:
     def clearStars(self, s: str) -> str:
-        output = []
-        smallest = []
-        removed = 0
-        for i,c in enumerate(s):
-            if c == '*':
-                _,i = heapq.heappop(smallest)
-                output[-i] = None
+        cnt = [[] for _ in range(26)]
+        arr = list(s)
+        for i, c in enumerate(arr):
+            if c != "*":
+                cnt[ord(c) - ord("a")].append(i)
             else:
-                heapq.heappush(smallest,(c,-i))
-            output.append(c)
-        return ''.join(c for c in output if c != None and c != '*')
+                for j in range(26):
+                    if cnt[j]:
+                        arr[cnt[j].pop()] = "*"
+                        break
+        return "".join(c for c in arr if c != "*")
