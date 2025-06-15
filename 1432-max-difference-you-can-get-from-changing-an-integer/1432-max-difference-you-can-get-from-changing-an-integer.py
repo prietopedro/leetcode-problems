@@ -17,7 +17,6 @@ class Solution:
                     break
         max_num =     int(num_arr.replace(max_num_to_replace,'9'))
         min_num = int(num_arr.replace(min_num_to_replace,'0' if num_arr[0] != min_num_to_replace else '1'))
-        print(max_num,min_num)
         return max_num - min_num
         
 
