@@ -1,7 +1,8 @@
 class Solution {
     public boolean containsDuplicate(int[] nums) {
-        HashSet<Integer> hash = new HashSet<>(nums.length);
-        for (int num : nums) hash.add(num);
-        return hash.size() != nums.length;
+        Set<Integer> uniqueElements = Arrays.stream(nums)
+                                            .boxed()
+                                            .collect(Collectors.toSet());
+        return uniqueElements.size() != nums.length;
     }
 }
