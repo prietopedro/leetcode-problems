@@ -8,20 +8,21 @@ class Solution:
     def verticalOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
         if not root: return []
         q = deque([(root,0)])
-        store = defaultdict(list)
+        output = defaultdict(list)
+        min_level = inf
+        max_level = -inf
         while q:
-            for _ in range(len(q)):
-                curr,level = q.popleft()
-                store[level].append(curr.val)
-                if curr.left:
-                    q.append((curr.left,level - 1))
-                if curr.right:
-                    q.append((curr.right,level + 1))
+            node,level = q.popleft()
+            min_level,max_level = min(min_level,level),max(max_level,level)
+            output[level].append(node.val)
+            if node.left:
+                q.append((node.left,level - 1))
+            if node.right:
+                q.append((node.right,level + 1))
+        length = max_level - min_level + 1
+        real_output = [[] for _ in range(length)]
+
+        for key in output.keys():
+            real_output[key - min_level] = output[key]
+        return real_output
         
-        min_index = min(store.keys())
-        max_index = max(store.keys())
-        output = []
-        for i in range(min_index,max_index + 1):
-            output.append(store[i])
-        return output
-            
