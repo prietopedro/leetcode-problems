@@ -6,5 +6,5 @@ class Solution:
             while deletions > 1:
                 deletions -= nums[left] == 0
                 left += 1
-            best = max(best,right - left + 1)
-        return best - 1
+            best = max(best,right - left)
+        return best
