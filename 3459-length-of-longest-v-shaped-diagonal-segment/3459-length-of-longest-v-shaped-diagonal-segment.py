@@ -1,38 +1,29 @@
 class Solution:
     def lenOfVDiagonal(self, grid: List[List[int]]) -> int:
-        m,n = len(grid),len(grid[0])
+        DIRS = [(1, 1), (1, -1), (-1, -1), (-1, 1)]
+        m, n = len(grid), len(grid[0])
 
         @cache
-        def dp(row,col,currentDirection,hasMadeTurnYet,prev):
-            nonlocal m,n
-            if not (0 <= row < m and 0 <= col < n):
+        def dfs(cx, cy, direction, turn, target):
+            nx, ny = cx + DIRS[direction][0], cy + DIRS[direction][1]
+            # If it goes beyond the boundary or the next node's value is not the target value, then return
+            if nx < 0 or ny < 0 or nx >= m or ny >= n or grid[nx][ny] != target:
                 return 0
+            turn_int = 1 if turn else 0
+            # Continue walking in the original direction.
+            max_step = dfs(nx, ny, direction, turn, 2 - target)
+            if turn:
+                # Clockwise rotate 90 degrees turn
+                max_step = max(
+                    max_step,
+                    dfs(nx, ny, (direction + 1) % 4, False, 2 - target),
+                )
+            return max_step + 1
 
-            target = ''
-            if prev == 2:
-                target = '0'
-            elif prev == 0 or prev == 1:
-                target = '2'
-
-            if str(grid[row][col]) not in target and prev != None:
-                return 0
-
-            best = 0
-            directions = [(-1,-1),(-1,1),(1,1),(1,-1)]
-            dx,dy = directions[currentDirection]
-            best = max(best,1 + dp(row + dx, col + dy, currentDirection, hasMadeTurnYet, grid[row][col]))
-            if not hasMadeTurnYet:
-                next_direction = (i + 1) % 4
-                dx,dy = directions[next_direction]
-                best = max(best,1 + dp(row + dx, col + dy, next_direction, True, grid[row][col]))
-                              
-            return best
-
-        best = 0
-        for row in range(m):
-            for col in range(n):
-                if grid[row][col] != 1:
-                    continue
-                for i in range(4):
-                    best = max(best, dp(row,col,i,False,None))
-        return best
+        res = 0
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == 1:
+                    for direction in range(4):
+                        res = max(res, dfs(i, j, direction, True, 2) + 1)
+        return res
