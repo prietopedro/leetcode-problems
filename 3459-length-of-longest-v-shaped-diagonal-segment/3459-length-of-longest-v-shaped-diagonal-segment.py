@@ -36,11 +36,3 @@ class Solution:
                 for i in range(4):
                     best = max(best, dp(row,col,i,False,None))
         return best
-
-        [1,1,1,2,0,0],
-        [0,0,0,0,1,2]
-
-        # -1,-1 -> -1,1
-        # -1,1 -> 1,1
-        # 1,1 -> 1,-1
-        # 1,-1 -> -1,-1
