@@ -9,5 +9,4 @@ class Solution:
             else:
                 right = middle
         left -= 1
-        print(left)
         return len(nums) // 2 <= left and nums[left - len(nums) // 2] == target
