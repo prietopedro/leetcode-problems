@@ -1,13 +1,12 @@
 class Solution:
     def isAnagram(self, s: str, t: str) -> bool:
+        if len(s) != len(t): return False
         sCount = defaultdict(int)
-        for c in s:
-            sCount[c] += 1
+        tCount = defaultdict(int)
+        for c1,c2 in zip(s,t):
+            sCount[c1] += 1
+            sCount[c2] -= 1
+            tCount[c2] += 1
+            tCount[c1] -= 1
         
-        for c in t:
-            sCount[c] -= 1
-            if sCount[c] < 0:
-                return False
-        
-        return sum(sCount.values()) == 0
-        
+        return sCount == tCount
