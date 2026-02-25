@@ -4,7 +4,6 @@ class Solution:
         for i in range(min_i):
             char = None
             for c in strs:
-                print(c[i])
                 if not char:
                     char = c[i]
                 if char != c[i]:
