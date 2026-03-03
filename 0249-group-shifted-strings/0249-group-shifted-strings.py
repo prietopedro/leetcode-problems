@@ -4,7 +4,7 @@ class Solution:
         for i,s in enumerate(strings):
             starting = []
             for i in range(len(s) - 1):
-                starting.append((ord(s[i + 1]) - ord(s[i])) % 26)
+                starting.append((ord(s[i]) - ord(s[i + 1])) % 26)
             seen[tuple(starting)].append(s)
         return list(seen.values())
         
