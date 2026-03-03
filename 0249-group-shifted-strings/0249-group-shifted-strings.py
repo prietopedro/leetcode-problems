@@ -7,7 +7,7 @@ class Solution:
                 if s[i] <= s[i + 1]:
                     starting.append(ord(s[i + 1]) - ord(s[i]))
                 else:
-                    starting.append(ord('z') - ord(s[i]) + ord(s[i + 1]) - ord('a') + 1)
+                    starting.append(26 - ord(s[i]) + ord(s[i + 1]))
             seen[tuple(starting)].append(s)
         return list(seen.values())
         
