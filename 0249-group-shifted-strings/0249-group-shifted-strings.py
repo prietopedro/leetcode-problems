@@ -9,6 +9,5 @@ class Solution:
                 else:
                     starting.append(26 - ord(s[i]) + ord(s[i + 1]))
             seen[tuple(starting)].append(s)
-        print(seen)
         return list(seen.values())
         
