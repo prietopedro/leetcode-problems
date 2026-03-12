@@ -5,6 +5,6 @@ class Solution:
         for i in range(1,len(sentence) - 1):
             if sentence[i] != " ":
                 continue
-            if sentence[i - 1] == " " or sentence[i - 1] != sentence[i + 1]:
+            if sentence[i - 1] != sentence[i + 1]:
                 return False
         return True 
