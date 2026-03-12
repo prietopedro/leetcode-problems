@@ -3,8 +3,8 @@ class Solution:
         if sentence[0] != sentence[-1] or sentence[0] == " ":
             return False
         for i in range(1,len(sentence) - 1):
-            if sentence[i] == " " and sentence[i - 1] == " ":
-                return False
-            if sentence[i] == " " and sentence[i - 1] != sentence[i + 1]:
+            if sentence[i] != " ":
+                continue
+            if sentence[i - 1] == " " or sentence[i - 1] != sentence[i + 1]:
                 return False
         return True 
