@@ -5,7 +5,7 @@ class Solution:
         best = -inf
         for i in range(len(s) - 1):
             num = int(s[i])
-            ones -= num
+            ones -= num == 1
             zeroes += num == 0
             best = max(best, ones + zeroes)
         return best
