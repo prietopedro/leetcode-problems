@@ -10,7 +10,7 @@ class Solution:
 
         total = 0
         for i in range(len(s)):
-            total += 1 + count(s, i-1, i + 1) + count(s, i - 1, i)
+            total += count(s, i, i) + count(s, i - 1, i)
             
         return total
 
