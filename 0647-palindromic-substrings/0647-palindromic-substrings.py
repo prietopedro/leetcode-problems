@@ -8,10 +8,6 @@ class Solution:
                 right += 1
             return total
 
-        total = 0
-        for i in range(len(s)):
-            total += count(s, i, i) + count(s, i - 1, i)
-            
-        return total
+        return sum(count(s, i, i) + count(s, i - 1, i) for i in range(len(s)))
 
 
