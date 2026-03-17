@@ -14,41 +14,24 @@ class Solution:
         
         for row in range(len(grid)):
             for col in range(len(grid[0])):
-                best = grid[row][col]
-                if best not in seen:
-                    best_rows.append(best)
-                    best_rows.sort(reverse=True)
-                    if len(best_rows) > 3:
-                        best_rows.pop()
-                seen.add(best)
                 max_r = min(col, len(grid[0]) - 1 - col, (len(grid) - 1 - row) // 2)
+                for change in range(max_r + 1):
+                    if change != 0:
+                        s = change
+                        lr, lc = row + s, col - s       
+                        br, bc = row + 2 * s, col       
+                        rr, rc = row + s, col + s
+                        total = grid[row][col] + grid[br][bc]
+                        total += left[lr][lc] - grid[lr][lc] - left[row][col]
+                        total += right[br][bc] - grid[br][bc] - right[lr][lc]
 
-                for change in range(max_r):
-                    s = change + 1  # rhombus "radius"
-                    lr, lc = row + s, col - s       # left corner
-                    br, bc = row + 2 * s, col       # bottom corner
-                    rr, rc = row + s, col + s       # right corner
+                        total += right[rr][rc] - grid[rr][rc] - right[row][col]
 
-                    # Start with just the 4 corners
-                    total = grid[row][col] + grid[br][bc]
+                        total += left[br][bc] - grid[br][bc] - left[rr][rc]
 
-                    # Top-left edge (row,col) -> (lr,lc), excluding endpoints
-                    # left[lr][lc] = sum from (row,col) down-left to (lr,lc)
-                    total += left[lr][lc] - grid[lr][lc] - left[row][col]
-
-                    # Bottom-left edge (lr,lc) -> (br,bc), excluding endpoints  
-                    # right[br][bc] = sum from (lr,lc) area... but easier to use:
-                    total += right[br][bc] - grid[br][bc] - right[lr][lc]
-
-                    # Top-right edge (row,col) -> (rr,rc), excluding endpoints
-                    total += right[rr][rc] - grid[rr][rc] - right[row][col]
-
-                    # Bottom-right edge (rr,rc) -> (br,bc), excluding endpoints
-                    total += left[br][bc] - grid[br][bc] - left[rr][rc]
-
-                    # Add back the corners that got excluded above
-                    # left[lr][lc] and right[rr][rc] excluded lr and rr
-                    total += grid[lr][lc] + grid[rr][rc]
+                        total += grid[lr][lc] + grid[rr][rc]
+                    else:
+                        total = grid[row][col]
 
                     if total not in seen:
                         best_rows.append(total)
