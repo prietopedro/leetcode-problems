@@ -7,7 +7,7 @@ class Solution:
         for right in range(len(nums)):
             window_sum += nums[right]
 
-            while window_sum >= target and left <= right:
+            while window_sum >= target:
                 min_size = min(min_size, right - left + 1)
                 window_sum -= nums[left]
                 left += 1
