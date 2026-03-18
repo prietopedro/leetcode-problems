@@ -13,7 +13,6 @@ class Solution:
         for right in range(len(s)):
             window[s[right]] += 1
             needed -= window[s[right]] == sub[s[right]]
-            # print(needed)
             while not needed:
                 if best_length > right - left + 1:
                     best_length = right-left + 1
@@ -21,5 +20,4 @@ class Solution:
                 needed += window[s[left]] == sub[s[left]]
                 window[s[left]] -= 1
                 left += 1
-        # print(best_starting)
         return s[best_starting:best_starting + best_length] if best_starting != inf else ""
