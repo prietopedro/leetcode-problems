@@ -1,10 +1,12 @@
 class Solution:
     def groupStrings(self, strings: List[str]) -> List[List[str]]:
         seen = defaultdict(list)
-        for i,s in enumerate(strings):
-            starting = []
-            for i in range(len(s) - 1):
-                starting.append((ord(s[i - 1]) - ord(s[i])) % 26)
-            seen[tuple(starting)].append(s)
+        for s in strings:
+            complete = [0]
+            for i in range(1,len(s)):
+                diff = ord(s[i]) - ord(s[i - 1])
+                if diff < 0:
+                    diff = 26 + diff
+                complete.append(diff)
+            seen[tuple(complete)].append(s)
         return list(seen.values())
-        
