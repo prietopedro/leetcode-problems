@@ -1,8 +1,6 @@
 class Solution:
     def appendCharacters(self, s: str, t: str) -> int:
         i = 0
-
-
         for j in range(len(s)):
             if i >= len(t):
                 return 0
