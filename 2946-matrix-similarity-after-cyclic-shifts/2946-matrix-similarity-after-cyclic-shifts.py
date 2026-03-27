@@ -4,7 +4,7 @@ class Solution:
             return True
 
         n = len(mat[0])
-        if k / n == k // n:
+        if k % n == 0:
             return True
 
         for row in range(len(mat)):
