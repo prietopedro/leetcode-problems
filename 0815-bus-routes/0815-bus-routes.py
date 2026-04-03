@@ -4,10 +4,11 @@ class Solution:
     def numBusesToDestination(self, routes: List[List[int]], source: int, target: int) -> int:
         if source == target:
             return 0
-            
+
         connections = defaultdict(list)
         current = deque([])
         seen_routes = set()
+        seen_stops = set()
 
         for i,r in enumerate(routes):
             for s in r:
@@ -19,6 +20,9 @@ class Solution:
         while current:
             r,stops = current.popleft()
             for s in routes[r]:
+                if s in seen_stops:
+                    continue
+                seen_stops.add(s)
                 if target == s:
                     return stops
                 for next_route in connections[s]:
