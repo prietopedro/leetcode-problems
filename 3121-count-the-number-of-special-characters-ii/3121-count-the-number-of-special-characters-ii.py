@@ -16,10 +16,12 @@ class Solution:
                 non_special[cIndex] = True
             if c.lower() == c and seen_uppercase[cIndex]:
                 non_special[cIndex] = True
+
             if c.upper() == c:
                 seen_uppercase[cIndex] = True
             if c.lower() == c:
                 seen_lowercase[cIndex] = True
+                
         output = 0
         for i in range(26):
             output += seen_lowercase[i] and seen_uppercase[i] and not non_special[i]
