@@ -11,6 +11,5 @@ class Solution:
                     endingRideMax = min(endingRideMax, startingRideMax + endingRideDuration[i])
                 else:
                     endingRideMax = min(endingRideMax, time + endingRideDuration[i])
-            print(endingRideMax)
             return endingRideMax
         return min(solve(landStartTime, landDuration, waterStartTime, waterDuration),solve(waterStartTime, waterDuration, landStartTime, landDuration))
