@@ -4,7 +4,7 @@ class Solution:
         left_sum = 0
         output = []
         for num in nums:
-            left_sum += num
-            output.append(abs(left_sum - right_sum) )
+            right_sum -= num
+            output.append(abs(left_sum - right_sum))
             left_sum += num
         return output
