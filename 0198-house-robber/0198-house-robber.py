@@ -1,8 +1,7 @@
 class Solution:
     def rob(self, nums: List[int]) -> int:
-        
-        first,second,third = 0,0,0
+        rob1,rob2 = 0,0
         for house in nums:
-            fourth = house + max(first,second)
-            first,second,third = second, third, fourth
-        return max(second,third)
+            rob3 = max(rob1 + house, rob2)
+            rob1,rob2 = rob2, rob3
+        return rob2
