@@ -1,12 +1,13 @@
 class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> bool:
-        @cache
-        def rec(i):
-            if i >= len(s):
-                return True
-            for word in wordDict:
-                if s[i:i+len(word)] == word and rec(i + len(word)):
-                    return True
+        n = len(s)
+        dp = [False] * (n + 1)
+        dp[n] = True  # empty suffix
 
-            return False
-        return rec(0)
+        for i in range(n - 1, -1, -1):
+            for word in wordDict:
+                if s[i:i+len(word)] == word and dp[i + len(word)]:
+                    dp[i] = True
+                    break
+
+        return dp[0]
