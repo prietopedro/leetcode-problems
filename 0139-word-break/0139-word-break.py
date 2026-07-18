@@ -1,14 +1,14 @@
 class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> bool:
-        dic = set(wordDict)
         @cache
-        def rec(i,j):
-            if s[i:j] in dic:
+        def dp(i):
+            if i < 0:
                 return True
-            
-            for k in range(i + 1, j):
-                res = rec(i,k) and rec(k, j)
-                if res:
+
+            for word in wordDict:
+                if s[i - len(word) + 1 : i + 1] == word and dp(i - len(word)):
                     return True
+
             return False
-        return rec(0,len(s))
+
+        return dp(len(s) - 1)
