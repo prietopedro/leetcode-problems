@@ -1,23 +1,16 @@
 class Solution:
     def canPartition(self, nums: List[int]) -> bool:
-        @lru_cache(maxsize=None)
-        def dfs(nums: Tuple[int], n: int, subset_sum: int) -> bool:
-            # Base cases
-            if subset_sum == 0:
-                return True
-            if n == 0 or subset_sum < 0:
-                return False
-            result = (dfs(nums, n - 1, subset_sum - nums[n - 1])
-                    or dfs(nums, n - 1, subset_sum))
-            return result
-
-        # find sum of array elements
-        total_sum = sum(nums)
-
-        # if total_sum is odd, it cannot be partitioned into equal sum subsets
-        if total_sum % 2 != 0:
+        total = sum(nums)
+        if total % 2:
             return False
+        target = total // 2
 
-        subset_sum = total_sum // 2
-        n = len(nums)
-        return dfs(tuple(nums), n - 1, subset_sum)
+        @cache
+        def go(i, left):
+            if left == target:
+                return True
+            if left > target or i == len(nums):
+                return False
+            return go(i + 1, left + nums[i]) or go(i + 1, left)
+
+        return go(0, 0)
