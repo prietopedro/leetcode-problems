@@ -11,7 +11,6 @@ class Solution:
         #         output += dp(target - num)
         #     return output
         # return dp(target)
-        nums.sort()
         dp = [0] * (target + 1)
         dp[0] = 1
         for t in range(1, target + 1):
