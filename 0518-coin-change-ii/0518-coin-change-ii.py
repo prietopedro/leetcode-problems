@@ -8,5 +8,9 @@ class Solution:
                 return 0
             if i >= len(coins):
                 return 0
-            return dp(i, remaining - coins[i]) + dp(i + 1, remaining)
+            output = dp(i + 1, remaining)
+            if remaining - coins[i] >= 0:
+                output += dp(i, remaining - coins[i])
+            return output
         return dp(0)
+
