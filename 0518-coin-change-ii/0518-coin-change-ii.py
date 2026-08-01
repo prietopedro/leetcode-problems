@@ -3,7 +3,6 @@ class Solution:
         # if not amount:
         #     return 0
         
-        coins.sort()
         @cache
         def dp(i,remaining = amount):
             if remaining == 0:
