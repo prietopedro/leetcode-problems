@@ -1,16 +1,15 @@
 class Solution:
     def canPartition(self, nums: List[int]) -> bool:
         total = sum(nums)
-        if total % 2:
+        if total % 2 != 0:
             return False
-        target = total // 2
 
         @cache
-        def go(i, left):
-            if left == target:
+        def dp(i, target = total // 2):
+            if target == 0: ## what if target is actually 0
                 return True
-            if left > target or i == len(nums):
+            if target < 0 or i >= len(nums):
                 return False
-            return go(i + 1, left + nums[i]) or go(i + 1, left)
-
-        return go(0, 0)
+            
+            return dp(i + 1, target - nums[i]) or dp(i + 1, target)
+        return dp(0)
