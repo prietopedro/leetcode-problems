@@ -1,16 +1,11 @@
 class Solution:
     def change(self, amount: int, coins: List[int]) -> int:
         @cache
-        def dp(i,remaining = amount):
-            if remaining == 0:
+        def dp(i, total = 0):
+            if total == amount:
                 return 1
-            if remaining < 0:
+            if i >= len(coins) or total > amount:
                 return 0
-            if i >= len(coins):
-                return 0
-            output = dp(i + 1, remaining)
-            if remaining - coins[i] >= 0:
-                output += dp(i, remaining - coins[i])
-            return output
+            
+            return dp(i, total + coins[i]) + dp(i + 1, total)
         return dp(0)
-
