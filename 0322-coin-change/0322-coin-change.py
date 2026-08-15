@@ -16,7 +16,6 @@ class Solution:
                 return inf
             return min(1 + dp(i,amount - coins[i]), dp(i + 1, amount))
         returning = dp(0,amount)
-        print(returning)
         if returning != inf:
             return returning
         return -1
