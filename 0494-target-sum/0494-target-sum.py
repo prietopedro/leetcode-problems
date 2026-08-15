@@ -19,26 +19,28 @@ class Solution:
         total = sum(nums)
         offset = total
         m = 2 * total + 1
-        n = len(nums) + 1
+        n = len(nums)
 
-        dp = [[0] * m for _ in range(n)]
+        dp = [0] * m
 
         # Base case:
         # i == len(nums)
         # current == target -> 1 way
         if -total <= target <= total:
-            dp[n - 1][target + offset] = 1
+            dp[target + offset] = 1
 
-        for i in range(n - 2, -1, -1):
+        for i in range(n - 1, -1, -1):
+            next_dp = [0] * m
             for j in range(m):
                 current = j - offset
 
                 # current + nums[i]
                 if current + nums[i] <= total:
-                    dp[i][j] += dp[i + 1][j + nums[i]]
+                    next_dp[j] += dp[j + nums[i]]
 
                 # current - nums[i]
                 if current - nums[i] >= -total:
-                    dp[i][j] += dp[i + 1][j - nums[i]]
+                    next_dp[j] += dp[j - nums[i]]
+            dp = next_dp
 
-        return dp[0][offset]
+        return dp[offset]
