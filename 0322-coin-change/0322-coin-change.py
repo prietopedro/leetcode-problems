@@ -1,24 +1,22 @@
 class Solution:
     def coinChange(self, coins: List[int], amount: int) -> int:
-        # @cache
-        # def minAmount(coinsLeft):
-            
-        #     if coinsLeft == 0:
-        #         return 0
-        #     if coinsLeft < 0:
-        #         return inf
+        
+        # dp = len(coins) * amount
+        # if amount == 0 and i == len(coins):
+            # return 0
+        # if amount < 0 or i >= len(coins):
+            # return 0
+        # dp[i][amount] = min(1 + dp[i][amount - coins[i]], dp[i + 1][amount])
 
-        #     best = inf
-        #     for coin in coins:
-        #         best = min(best,1 + minAmount(coinsLeft - coin))
-            
-        #     return best
-        # best = minAmount(amount)
-        # return best if best != inf else -1
-
-        dp = [inf] * (amount + 1)
-        dp[0] = 0
-        for coin in coins:
-            for i in range(coin,len(dp)):
-                dp[i] = min(dp[i - coin] + 1, dp[i])
-        return dp[-1] if dp[-1] != inf else -1
+        @cache
+        def dp(i, amount):
+            if amount == 0 and i == len(coins):
+                return 0
+            if amount < 0 or i >= len(coins):
+                return inf
+            return min(1 + dp(i,amount - coins[i]), dp(i + 1, amount))
+        returning = dp(0,amount)
+        print(returning)
+        if returning != inf:
+            return returning
+        return -1
