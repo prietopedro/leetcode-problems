@@ -6,11 +6,10 @@ class Solution:
         # 1,000,000-999,999,999 -> 2
 
         current = 1000
-        multiplier = 1000
         loop = 1
         total = 0
         while n >= current:
-            nxt = current * multiplier
+            nxt = current * 1000
             max_num = min(n,nxt - 1)
             total += (max_num - current + 1) * loop
             current = nxt
