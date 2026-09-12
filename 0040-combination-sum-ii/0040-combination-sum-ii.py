@@ -1,20 +1,14 @@
 class Solution:
     def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
-        def hashh(arr):
-            return '.'.join([str(x) for x in arr])
         output = []
         curr = []
         candidates.sort()
-        seen = set()
         def rec(i, target):
             if target < 0:
                 return
             if i >= len(candidates):
                 if target == 0:
-                    str_hash = hashh(curr)
-                    if str_hash not in seen:
-                        output.append(curr[:])
-                        seen.add(str_hash)
+                    output.append(curr[:])
                 return
             
             curr.append(candidates[i])
