@@ -4,11 +4,11 @@ class Solution:
         curr = []
         candidates.sort()
         def rec(i, target):
-            if target < 0:
+            if target == 0:
+                output.append(curr[:])
                 return
-            if i >= len(candidates):
-                if target == 0:
-                    output.append(curr[:])
+
+            if i == len(candidates) or candidates[i] > target:
                 return
             
             curr.append(candidates[i])
