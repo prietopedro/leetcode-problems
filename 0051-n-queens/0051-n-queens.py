@@ -31,8 +31,7 @@ class Solution:
                 row not in curr_rows and
                 col not in curr_cols and
                 row - col not in curr_left and
-                row + col not in curr_right and
-                queens < n
+                row + col not in curr_right
             )
             if can_set:
                 curr_rows.add(row)
