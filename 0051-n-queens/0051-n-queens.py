@@ -21,14 +21,10 @@ class Solution:
         def backtrack(curr, queens):
             row = curr // n
             col = curr % n
-            # if queens == n:
-            #     while len(current) <= n * n:
-            #         current.append('.')
-            #     output.append(current[:])
-            #     return
+            if queens == n:
+                output.append(current + ["."] * (n * n - len(current)))
+                return
             if curr >= n * n:
-                if queens == n:
-                    output.append(current[:])
                 return
             
             can_set = (
