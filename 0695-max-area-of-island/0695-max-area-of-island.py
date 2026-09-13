@@ -18,7 +18,7 @@ class Solution:
         best = 0
         for row in range(m):
             for col in range(n):
-                if grid[row][col] not in seen and grid[row][col]:
+                if (row,col) not in seen and grid[row][col]:
                     seen.add((row,col))
                     best = max(best, dfs(row,col))
         return best
