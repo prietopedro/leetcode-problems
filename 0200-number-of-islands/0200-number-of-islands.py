@@ -1,18 +1,27 @@
 class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
         seen = set()
-        def dfs(x,y,m,n):
-            if not (0 <= x < m and 0 <= y < n):
+        m = len(grid)
+        n = len(grid[0])
+        def dfs(row,col):
+            nonlocal m,n
+            if (row,col) in seen:
                 return
-            if grid[x][y] == '0' or (x,y) in seen:
+            if not (0 <= row < m and 0 <= col < n):
                 return
-            seen.add((x,y))
-
-            return dfs(x + 1,y,m,n) or dfs(x - 1, y,m,n) or dfs(x, y + 1,m,n) or dfs(x, y - 1,m,n)
-        m,n = len(grid),len(grid[0])
+            if grid[row][col] == "0":
+                return
+            seen.add((row,col))
+            dfs(row + 1, col) 
+            dfs(row - 1, col) 
+            dfs(row, col + 1) 
+            dfs(row, col - 1)
+            return
         output = 0
         for row in range(m):
             for col in range(n):
-                output += grid[row][col] == "1" and (row,col) not in seen
-                dfs(row,col,m,n)
+                if grid[row][col] == "1" and (row,col) not in seen:
+                    print(row,col)
+                    dfs(row,col)
+                    output += 1
         return output
