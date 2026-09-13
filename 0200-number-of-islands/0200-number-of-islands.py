@@ -16,7 +16,6 @@ class Solution:
             dfs(row - 1, col) 
             dfs(row, col + 1) 
             dfs(row, col - 1)
-            return
         output = 0
         for row in range(m):
             for col in range(n):
