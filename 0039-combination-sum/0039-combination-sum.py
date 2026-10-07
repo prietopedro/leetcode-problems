@@ -1,23 +1,15 @@
 class Solution:
-    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+    def combinationSum(self, candidates: list[int], target: int) -> list[list[int]]:
         output = []
-        curr = []
-        def rec(i, target):
-            if i >= len(candidates) or target < 0:
-                return
+        def bt(i, current, target):
             if target == 0:
-                # hash_k = ','.join([str(x) for x in curr])
-                # if hash_k in seen:
-                #     return
-                # seen.add(hash_k)
-                output.append(curr[:])
+                output.append(current[:])
                 return
-            
-            rec(i + 1, target)
-            curr.append(candidates[i])
-            rec(i, target - candidates[i])
-            curr.pop()
-        rec(0, target)
+            if target < 0 or i >= len(candidates):
+                return
+            bt(i + 1, current, target)
+            current.append(candidates[i])
+            bt(i, current, target - candidates[i])
+            current.pop()
+        bt(0,[],target)
         return output
-
-            
