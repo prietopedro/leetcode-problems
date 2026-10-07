@@ -1,22 +1,20 @@
 class Solution:
-    def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
-        output = []
-        curr = []
+    def combinationSum2(self, candidates: list[int], target: int) -> list[list[int]]:
         candidates.sort()
-        def rec(i, target):
+        output = []
+        def bt(i,current, target):
             if target == 0:
-                output.append(curr[:])
+                output.append(current[:])
                 return
+            if i >= len(candidates) or target < 0:
+                return
+            current.append(candidates[i])            
+            bt(i + 1, current, target - candidates[i])
+            current.pop()
 
-            if i == len(candidates) or candidates[i] > target:
-                return
-            
-            curr.append(candidates[i])
-            rec(i + 1,target - candidates[i])
-            curr.pop()
-            next_i = i + 1
-            while next_i < len(candidates) and candidates[next_i] == candidates[i]:
-                next_i += 1
-            rec(next_i, target)
-        rec(0,target)
+            while i + 1 < len(candidates) and candidates[i] == candidates[i + 1]:
+                i += 1
+            bt(i + 1, current, target)
+        
+        bt(0, [], target)
         return output
