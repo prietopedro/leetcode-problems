@@ -6,7 +6,7 @@ class Solution:
             if target == 0:
                 output.append(current[:])
                 return
-            if i >= len(candidates) or target < 0:
+            if i >= len(candidates) or candidates[i] > target:
                 return
             current.append(candidates[i])            
             bt(i + 1, current, target - candidates[i])
