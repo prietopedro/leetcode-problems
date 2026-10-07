@@ -1,25 +1,20 @@
 class Solution:
-    def generateParenthesis(self, n: int) -> List[str]:
+    def generateParenthesis(self, n: int) -> list[str]:
         output = []
-        curr = []
-        curr_stack = []
-        def bt(left):
-            if left == 0 and not curr_stack:
-                output.append(''.join(curr[:]))
+        def generate(opened, current):
+            if len(current) == n * 2 and not opened:
+                output.append("".join(current))
                 return
-            if left:
-                curr_stack.append('(')
-                curr.append('(')
-                bt(left - 1)
-                curr_stack.pop()
-                curr.pop()
-            if curr_stack:
-                curr_stack.pop()
-                curr.append(')')
-                bt(left)
-                curr_stack.append('(')
-                curr.pop()
-            
+            if opened + len(current) > n * 2:
+                return
 
-        bt(n)
+            if opened:
+                current.append(")")
+                generate(opened - 1, current)
+                current.pop()
+
+            current.append("(")
+            generate(opened + 1, current)
+            current.pop()
+        generate(0,[])
         return output
