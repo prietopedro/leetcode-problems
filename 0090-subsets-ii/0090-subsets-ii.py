@@ -1,17 +1,17 @@
 class Solution:
-    def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
-        curr = []
+    def subsetsWithDup(self, nums: list[int]) -> list[list[int]]:
         output = []
         nums.sort()
-        def rec(i):
+        def bt(i, current):
             if i >= len(nums):
-                output.append(curr[:])
+                output.append(current[:])
                 return
-            curr.append(nums[i])
-            rec(i + 1)
-            curr.pop()
-            while i < len(nums) - 1 and nums[i] == nums[i + 1]:
+            current.append(nums[i])
+            bt(i + 1, current)
+            current.pop()
+
+            while i + 1 < len(nums) and nums[i] == nums[i + 1]:
                 i += 1
-            rec(i + 1)
-        rec(0)
+            bt(i + 1, current)
+        bt(0,[])
         return output
