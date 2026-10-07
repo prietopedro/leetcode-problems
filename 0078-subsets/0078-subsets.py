@@ -1,16 +1,13 @@
 class Solution:
-    def subsets(self, nums: List[int]) -> List[List[int]]:
-        output = [[]]
-        def backtrack(i,current = []):
+    def subsets(self, nums: list[int]) -> list[list[int]]:
+        output = []
+        def bt(i, current = []):
+            if i >= len(nums):
+                output.append(current[:])
+                return
+            bt(i + 1, current)
             current.append(nums[i])
-            output.append(current[:])
-            for j in range(i + 1,len(nums)):
-                backtrack(j,current)
-                current.pop()
-            return output
-
-        for i in range(len(nums)):
-            backtrack(i,[])
+            bt(i + 1,current)
+            current.pop()
+        bt(0)
         return output
-        
-            
