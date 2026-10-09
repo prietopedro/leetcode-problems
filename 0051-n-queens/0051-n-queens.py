@@ -1,81 +1,39 @@
 class Solution:
-    def solveNQueens(self, n: int) -> List[List[str]]:
-        # once i use a row i cant use that row
-            # keep track of used rows
-        # once i use a col i cant use that col
-            # keep track of used cols
-        # when i use a cell i cant use any other cell where abs(row1 - row2) == abs(col1 - col2)
-            # store difference between row and col (row - col) for both left and right
+    def solveNQueens(self, n: int) -> list[list[str]]:
+        # for each row place queen (mark column)
+            # for each row place queen where not in column and doesnt clash
+                # ...
+        
+        # (0,0), (1,1), (2,2), (3,3)
+        # (0,1), (1,2)
+        # if y2-y1 == x2 - x1
 
-
-        # for i to row , col
-        # row = i // n
-        # col = i % n
+        # (0,3),(1,2),(2,1),(3,0)
+        # (0,2), (1,1),(2,0)
+        # if y1+y2 == x2 + x1
 
         output = []
-        current = []
-        curr_rows = set()
-        curr_cols = set()
-        curr_left = set()
-        curr_right = set()
-        def backtrack(curr, queens):
-            row = curr // n
-            col = curr % n
-            if queens == n:
-                output.append(current + ["."] * (n * n - len(current)))
+        seen_cols = set()
+        left,right = set(), set()
+        def rec(row,current):
+            if row == n:
+                print(current)
+                output.append(current[:])
                 return
-            if curr >= n * n:
-                return
-            
-            can_set = (
-                row not in curr_rows and
-                col not in curr_cols and
-                row - col not in curr_left and
-                row + col not in curr_right
-            )
-            if can_set:
-                curr_rows.add(row)
-                curr_cols.add(col)
-                curr_left.add(row - col)
-                curr_right.add(row + col)
-                current.append("Q")
-                backtrack(curr + 1, queens + 1)
-                curr_rows.remove(row)
-                curr_cols.remove(col)
-                curr_left.remove(row - col)
-                curr_right.remove(row + col)
+            for col in range(n):
+                if col in seen_cols or (row - col) in left or (row + col) in right:
+                    continue
+                current.append("".join((["."] * col) + ["Q"] + ["."] * (n - col - 1)))
+                seen_cols.add(col)
+                left.add(row - col)
+                right.add(row + col)
+                rec(row + 1, current)
+                seen_cols.remove(col)
+                left.remove(row - col)
+                right.remove(row + col)
                 current.pop()
-            
-            current.append('.')
-            backtrack(curr + 1, queens)
-            current.pop()
+        rec(0,[])
+        return output
 
 
-        backtrack(0,0)
-        modified_output = []
-        for game in output:
-            new_game = []
-            level = ""
-            for place in game:
-                level += place
-                if len(level) == n:
-                    new_game.append(level)
-                    level = ""
-            modified_output.append(new_game)
-        return modified_output
 
-
-# 8 and 11
-# 8 // 4 == 2
-# 8 % 4 == 0
-
-# 11 // 4 = 2
-# 11 % 4 == 3
-
-# [".Q..",
-#  "...Q",
-#  "..Q.",
-#  "Q..."]
-
-#  1,3
-#  2,2
