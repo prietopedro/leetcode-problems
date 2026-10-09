@@ -6,9 +6,10 @@ class Solution:
                 if s[i] != s[-i - 1]:
                     return False
             return True
+
         output = []
         def bt(start, current):
-            print(start, current)
+           
             if len("".join(current)) == len(s):
                 output.append(current[:])
                 return
