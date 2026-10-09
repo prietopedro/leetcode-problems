@@ -8,8 +8,8 @@ class Solution:
             return True
 
         output = []
-        def bt(start, current, count):
-            if count == len(s):
+        def bt(start, current):
+            if start == len(s):
                 output.append(current[:])
                 return
 
@@ -19,8 +19,8 @@ class Solution:
             for j in range(start,len(s)):
                 if isPalindrome(s[start:j+1]):
                     current.append(s[start:j+1])
-                    bt(j + 1, current, count + (j - start + 1))
+                    bt(j + 1, current)
                     current.pop()
 
-        bt(0,[], 0)
+        bt(0,[])
         return output
