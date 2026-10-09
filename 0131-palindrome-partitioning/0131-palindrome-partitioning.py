@@ -1,10 +1,12 @@
 class Solution:
     def partition(self, s: str) -> list[list[str]]:
         @cache
-        def isPalindrome(s):
-            for i in range(len(s) // 2):
-                if s[i] != s[-i - 1]:
+        def isPalindrome(left, right):
+            while left < right:
+                if s[left] != s[right]:
                     return False
+                left += 1
+                right -= 1
             return True
 
         output = []
@@ -17,7 +19,7 @@ class Solution:
                 return
 
             for j in range(start,len(s)):
-                if isPalindrome(s[start:j+1]):
+                if isPalindrome(start,j):
                     current.append(s[start:j+1])
                     bt(j + 1, current)
                     current.pop()
