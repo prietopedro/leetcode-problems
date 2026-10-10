@@ -8,9 +8,9 @@ class Solution:
     def isBalanced(self, root: TreeNode | None) -> bool:
         balanced = True
         def dfs(node):
-            if not node:
-                return 0
             nonlocal balanced
+            if not node or not balanced:
+                return 0
             left = dfs(node.left)
             right = dfs(node.right)
             if abs(left - right) > 1:
