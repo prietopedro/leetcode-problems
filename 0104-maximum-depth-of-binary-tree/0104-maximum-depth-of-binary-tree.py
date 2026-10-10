@@ -8,14 +8,6 @@ class Solution:
     def maxDepth(self, root: TreeNode | None) -> int:
         if not root:
             return 0
-        q = deque([root])
-        max_depth = 0
-        while q:
-            max_depth += 1
-            for _ in range(len(q)):
-                node = q.popleft()
-                if node.left:
-                    q.append(node.left)
-                if node.right:
-                    q.append(node.right)
-        return max_depth
+        left = self.maxDepth(root.left)
+        right = self.maxDepth(root.right)
+        return 1 + max(left,right)
