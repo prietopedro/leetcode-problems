@@ -13,7 +13,6 @@ class Solution:
             nonlocal balanced
             left = dfs(node.left)
             right = dfs(node.right)
-            print(left,right)
             if abs(left - right) > 1:
                 balanced = False
             return 1 + max(left, right)
