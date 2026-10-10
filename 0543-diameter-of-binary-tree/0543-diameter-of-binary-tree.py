@@ -11,6 +11,6 @@ class Solution:
                 return (0,0)
             left, left_best = rec(node.left)
             right, right_best = rec(node.right)
-            return (max(left,right) + 1, max(left_best, right_best, left + right + 1))
+            return (max(left,right) + 1, max(left_best, right_best, left + right))
         _,best = rec(root)
-        return best - 1
+        return best
