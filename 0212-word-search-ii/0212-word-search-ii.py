@@ -1,8 +1,10 @@
-class TrieNode():
+
+class TrieNode:
     def __init__(self):
         self.children = {}
         self.word = ""
-class Trie():
+
+class Trie:
     def __init__(self):
         self.root = TrieNode()
 
@@ -16,34 +18,52 @@ class Trie():
 
 class Solution:
     def findWords(self, board: list[list[str]], words: list[str]) -> list[str]:
+        if not board or not board[0]:
+            return []
+
         trie_g = Trie()
         for word in words:
             trie_g.add(word)
 
         seen = set()
         output = set()
-        m,n = len(board),len(board[0])
-        num = 1
-        def recurse(row,col,trie):
+        m, n = len(board), len(board[0])
+
+        def recurse(row, col, parent, char):
             if not (0 <= row < m and 0 <= col < n):
                 return
-            if (row,col) in seen:
+            if (row, col) in seen:
                 return
-            if board[row][col] not in trie.children:
+            if char not in parent.children:
                 return
-            trie = trie.children[board[row][col]]
-            if trie.word:
-                output.add(trie.word)     
-            seen.add((row,col))
-            recurse(row + 1, col, trie)
-            recurse(row - 1, col, trie)
-            recurse(row, col + 1, trie)
-            recurse(row, col - 1, trie)
-            seen.remove((row,col))
-            
 
+            trie = parent.children[char]
+
+            if trie.word:
+                output.add(trie.word)
+                trie.word = ""
+
+            seen.add((row, col))
+
+            for nr, nc in [
+                (row + 1, col),
+                (row - 1, col),
+                (row, col + 1),
+                (row, col - 1)
+            ]:
+                if 0 <= nr < m and 0 <= nc < n:
+                    next_char = board[nr][nc]
+                    recurse(nr, nc, trie, next_char)
+
+            seen.remove((row, col))
+
+            # Remove this Trie branch if nothing remains
+            if not trie.children and not trie.word:
+                del parent.children[char]
 
         for row in range(m):
             for col in range(n):
-                recurse(row,col,trie_g.root)
+                char = board[row][col]
+                recurse(row, col, trie_g.root, char)
+
         return list(output)
