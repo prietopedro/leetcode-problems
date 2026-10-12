@@ -14,13 +14,10 @@ class Solution:
                 if rooms[row][col] == 0:
                     q.append((row,col))
 
-        level = 1
         while q:
 
             for _ in range(len(q)):
                 row,col = q.popleft()
-                # if rooms[row][col] == 0:
-                #     rooms[row][col] = level
 
                 for dr,dc in dirs:
                     nr,nc = row + dr,col + dc
@@ -29,7 +26,6 @@ class Solution:
                     if rooms[nr][nc] != INF:
                         continue 
                     q.append((nr,nc))
-                    rooms[nr][nc] = level
-            level += 1
+                    rooms[nr][nc] = rooms[row][col] + 1
 
 
