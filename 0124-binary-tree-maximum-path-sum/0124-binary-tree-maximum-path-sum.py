@@ -10,23 +10,17 @@ class Solution:
         #update some global variable with max, being maxL + maxR + curr, (or maxL, or maxR), or maxL + curr, or maxR + curr
         #return max of maxL,maxR + curr
         best = -inf
-        def maxPathHelper(node):
+        def dfs(node):
             nonlocal best
             if not node:
-                return -inf
-            maxL = maxPathHelper(node.left)
-            maxR = maxPathHelper(node.right)
-            curr = node.val
-            best = max(
-                best,
-                maxL + maxR + curr,
-                maxL,
-                maxR,
-                maxL + curr,
-                maxR + curr,
-                curr
-            )
-            return max(maxL,maxR,0) + curr
+                return 0
+
+            left = max(dfs(node.left), 0)
+            right = max(dfs(node.right), 0)
+
+            best = max(best, node.val + left + right)
+
+            return node.val + max(left, right)
         
-        maxPathHelper(root)
+        dfs(root)
         return best
