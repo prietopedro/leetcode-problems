@@ -11,11 +11,15 @@ class Solution:
         # check current node must fall between both ends
         # moving left -> update the max
         # moving right -> update the min
-
-        def valid(node,min_val=-inf,max_val=inf):
-            if not node:
-                return True
+        if not root:
+            return True
+        s = [(root,-inf,inf)]
+        while s:
+            node,min_val,max_val = s.pop()
             if not (min_val < node.val < max_val):
                 return False
-            return valid(node.left,min_val,node.val) and valid(node.right,node.val,max_val)
-        return valid(root)
+            if node.left:
+                s.append((node.left,min_val,node.val))
+            if node.right:
+                s.append((node.right,node.val,max_val))
+        return True
