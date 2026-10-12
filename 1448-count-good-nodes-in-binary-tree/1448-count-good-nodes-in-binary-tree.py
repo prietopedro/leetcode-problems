@@ -6,10 +6,16 @@
 #         self.right = right
 class Solution:
     def goodNodes(self, root: TreeNode) -> int:
-        
-        def countGood(node, max_val = -inf):
-            if not node:
-                return 0
-            new_max = max(node.val,max_val)
-            return int(node.val >= max_val) + countGood(node.left,new_max) + countGood(node.right,new_max)
-        return countGood(root)
+        if not root:
+            return 0
+        q = deque([(root, -inf)])
+        output = 0
+        while q:
+            curr,max_val = q.popleft()
+            output += curr.val >= max_val
+            new_max = max(curr.val,max_val)
+            if curr.left:
+                q.append((curr.left,new_max))
+            if curr.right:
+                q.append((curr.right,new_max))
+        return output
