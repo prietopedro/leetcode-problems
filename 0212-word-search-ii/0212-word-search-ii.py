@@ -26,7 +26,7 @@ class Solution:
             trie_g.add(word)
 
         seen = set()
-        output = set()
+        output = []
         m, n = len(board), len(board[0])
 
         def recurse(row, col, parent, char):
@@ -40,7 +40,7 @@ class Solution:
             trie = parent.children[char]
 
             if trie.word:
-                output.add(trie.word)
+                output.append(trie.word)
                 trie.word = ""
 
             seen.add((row, col))
@@ -66,4 +66,4 @@ class Solution:
                 char = board[row][col]
                 recurse(row, col, trie_g.root, char)
 
-        return list(output)
+        return output
