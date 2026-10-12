@@ -8,14 +8,14 @@ class Solution:
     def goodNodes(self, root: TreeNode) -> int:
         if not root:
             return 0
-        q = deque([(root, -inf)])
+        s = [(root, -inf)]
         output = 0
-        while q:
-            curr,max_val = q.popleft()
+        while s:
+            curr,max_val = s.pop()
             output += curr.val >= max_val
             new_max = max(curr.val,max_val)
             if curr.left:
-                q.append((curr.left,new_max))
+                s.append((curr.left,new_max))
             if curr.right:
-                q.append((curr.right,new_max))
+                s.append((curr.right,new_max))
         return output
