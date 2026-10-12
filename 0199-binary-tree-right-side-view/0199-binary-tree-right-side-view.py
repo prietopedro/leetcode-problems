@@ -5,15 +5,18 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
+    def rightSideView(self, root: TreeNode | None) -> list[int]:
+        if not root:
+            return []
+        q = deque([root])
         output = []
-        def dfs(node,level):
-            if not node:
-                return
-            if len(output) == level:
-                output.append(None)
-            output[level] = node.val
-            dfs(node.left, level + 1)
-            dfs(node.right, level + 1)
-        dfs(root,0)
+        while q:
+            output.append(None)
+            for _ in range(len(q)):
+                curr = q.popleft()
+                output[-1] = curr.val
+                if curr.left:
+                    q.append(curr.left)
+                if curr.right:
+                    q.append(curr.right)
         return output
