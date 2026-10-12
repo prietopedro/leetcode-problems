@@ -40,6 +40,7 @@ class Solution:
             recurse(row, col + 1, trie)
             recurse(row, col - 1, trie)
             seen.remove((row,col))
+            
 
 
         for row in range(m):
