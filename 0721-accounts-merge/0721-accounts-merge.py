@@ -33,18 +33,16 @@ class Solution:
                     uf.union(i,emails[acc[j]])
                 emails[acc[j]] = i
         
+        groups = defaultdict(set)
+
+        for i, acc in enumerate(accounts):
+            root = uf.find(i)
+            groups[root].update(acc[1:])
+
         output = []
-        completed = set()
-        for i in range(len(accounts)):
-            if i in completed:
-                continue
-            output.append([])
-            for j in range(len(accounts)):
-                if j in completed:
-                    continue
-                if uf.same_set(i,j):
-                    output[-1].extend(accounts[j][1:])
-                    completed.add(j)
-            output[-1] = [accounts[i][0]] + sorted(set(output[-1]))
-            completed.add(i)
+
+        for root, email_set in groups.items():
+            name = accounts[root][0]
+            output.append([name] + sorted(email_set))
+
         return output
