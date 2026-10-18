@@ -7,18 +7,28 @@ class Solution:
             graph[y].append(x)
         
         for i in range(len(edges) - 1, -1, -1):
-            x,y = edges[i]
-            s = [(y,x)]
-            visited = set([y])
+            x, y = edges[i]
+            s = [(y, x)]
+            visited = {y}
+            abandon = False
+
             while s:
-                curr,prev = s.pop()
+                curr, prev = s.pop()
+
                 for nei in graph[curr]:
                     if nei == x and curr != y:
                         return edges[i]
+
                     if nei == prev:
                         continue
+
                     if nei in visited:
+                        abandon = True
                         break
+
                     visited.add(nei)
-                    s.append((nei,curr))
+                    s.append((nei, curr))
+
+                if abandon:
+                    break
         return [-1,-1]
