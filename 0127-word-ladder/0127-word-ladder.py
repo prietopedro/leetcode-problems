@@ -23,12 +23,12 @@ class Solution:
         q = deque([(beginWord,1)])
         while q:
             curr,level = q.popleft()
-            if curr == endWord:
-                return level
             
             for nei in graph[curr]:
                 if nei in visited:
                     continue
+                if nei == endWord:
+                    return level + 1
                 visited.add(nei)
                 q.append((nei,level + 1))
         return 0
