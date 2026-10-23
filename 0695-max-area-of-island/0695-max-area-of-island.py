@@ -1,24 +1,21 @@
 class Solution:
-    def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
-        seen = set()
-        NEI = [(1,0), (-1,0), (0,1), (0,-1)]
-        m,n = len(grid), len(grid[0])
+    def maxAreaOfIsland(self, grid: list[list[int]]) -> int:
+        m,n = len(grid),len(grid[0])
+        visited = set()
         def dfs(row,col):
-            paths = 0
-            for dr,dc in NEI:
-                nr,nc = row + dr, col + dc
-                if not (0 <= nr < m and 0 <= nc < n):
-                    continue
-                if (nr,nc) in seen or not grid[nr][nc]:
-                    continue
-                seen.add((nr,nc))
-                paths += dfs(nr,nc)
-            return 1 + paths
-
+            if not (0 <= row < m and 0 <= col < n):
+                return 0
+            if grid[row][col] == 0 or (row,col) in visited:
+                return 0
+            visited.add((row,col))
+            return 1 + (
+                dfs(row + 1,col) +
+                dfs(row - 1,col) +
+                dfs(row, col + 1) +
+                dfs(row, col - 1)
+            )
         best = 0
         for row in range(m):
             for col in range(n):
-                if (row,col) not in seen and grid[row][col]:
-                    seen.add((row,col))
-                    best = max(best, dfs(row,col))
+                best = max(best,dfs(row,col))
         return best
